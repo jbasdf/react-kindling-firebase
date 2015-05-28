@@ -1,6 +1,6 @@
 "use strict";
 
-import Constants   from   "../constants";
+import Constants   from "../constants";
 import Dispatcher  from "../dispatcher";
 import WebAPI      from "../utils/web-api";
 
