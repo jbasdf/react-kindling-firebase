@@ -102,7 +102,7 @@ class Login extends BaseComponent{
     let styles = this.getStyles();
     return <div style={styles.root}> 
       <Paper style={styles.registerPaper} >
-        <form style={styles.form} onSubmit={this._handleLogin}>
+        <form style={styles.form} onSubmit={(e) => { this._handleLogin(e)}}>
           <h1 style={styles.signupLabel} >Login</h1>
           <TextField hintText="johndoe@example.com" floatingLabelText="Email" errorText={this.state.validations.email} ref="email" onBlur={this.validateEmail} />
           <TextField type="password" hintText="******" floatingLabelText="Password" errorText={this.state.validations.password} ref="password" onBlur={this.validatePassword} />
