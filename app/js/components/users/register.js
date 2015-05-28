@@ -1,19 +1,18 @@
 "use strict";
 
-import React        from 'react';
-import { Link }     from 'react-router';
-import Validator    from "validator";
-import UserActions  from "../../actions/userActions";
-import _            from "lodash";
-import assign       from "object-assign";
-import BaseComponent    from "../base_component";
+import React         from 'react';
+import { Link }      from 'react-router';
+import Validator     from "validator";
+import _             from "lodash";
+import assign        from "object-assign";
+import BaseComponent from "../base_component";
+import UserActions   from "../../actions/users";
 import { FloatingActionButton, Styles, Paper, TextField, FlatButton, RaisedButton, FontIcon } from "material-ui";
 
 const Colors = Styles.Colors; 
 const Spacing = Styles.Spacing; 
 const Typography = Styles.Typography; 
 const ThemeManager = new Styles.ThemeManager().getCurrentTheme();
-
 
 class Register extends BaseComponent{
 
@@ -23,7 +22,6 @@ class Register extends BaseComponent{
       validations: {} 
     };
   }
-
 
   validateEmail(e){
     return this.validate(
@@ -110,7 +108,7 @@ class Register extends BaseComponent{
     let styles = this.getStyles();
     return <div style={styles.root}> 
       <Paper style={styles.registerPaper} >
-        <form style={styles.form} onSubmit={this.handleRegister}>
+        <form style={styles.form} onSubmit={(e) => { this.handleRegister(e) }}>
           <h1 style={styles.signupLabel} >Signup</h1>
           <TextField hintText="johndoe@example.com" floatingLabelText="Email" errorText={this.state.validations.email} ref="email" onBlur={this.validateEmail} />
           <TextField type="password" hintText="******" floatingLabelText="Password" errorText={this.state.validations.password} ref="password" onBlur={this.validatePassword} />
