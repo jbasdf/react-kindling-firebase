@@ -5,7 +5,7 @@ import assign                from 'object-assign';
 
 const Auth = {
     onAuth(authObject){
-        console.log('onAuth called');
+      console.log('onAuth called');
     },
     oAuthLogin(provider, cb){
       //If we have a token already, just invoke callback and return.
