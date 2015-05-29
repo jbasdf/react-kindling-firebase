@@ -22,9 +22,19 @@ class AppLeftNav extends React.Component {
   constructor() {
     super();
     this.toggle = this.toggle.bind(this);
+    this.state = { loggedIn: Auth.loggedIn()},
     this._getSelectedIndex = this._getSelectedIndex.bind(this);
     this._onLeftNavChange = this._onLeftNavChange.bind(this);
     this._onHeaderClick = this._onHeaderClick.bind(this);
+    this.setStateOnAuth = this.setStateOnAuth.bind(this);
+  }
+
+  setStateOnAuth(loggedIn){
+    this.setState({loggedIn: loggedIn});
+  }
+
+  componentWillMount(){
+    Auth.onChange = this.setStateOnAuth;
   }
 
   getStyles() {
