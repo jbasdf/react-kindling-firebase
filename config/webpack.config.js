@@ -84,6 +84,7 @@ module.exports = function(release){
       loaders: [
         { test: /\.js$/,              loaders: jsLoaders, exclude: /node_modules/ },
         { test: /\.jsx?$/,            loaders: jsLoaders, exclude: /node_modules/ },
+        { test: /\.json?$/,           loader: 'json-loader' },
         { test: /\.scss$/,            loader: scssLoaders.join('!') },
         { test: /\.css$/ ,            loader: cssLoaders.join('!') },
         { test: /\.less$/ ,           loader: lessLoaders.join('!') },

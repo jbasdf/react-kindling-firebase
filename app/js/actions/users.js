@@ -2,20 +2,27 @@
 
 import Constants   from "../constants";
 import Dispatcher  from "../dispatcher";
-import WebAPI      from "../utils/web-api";
+import Auth        from "../utils/auth";
 
 export default {
 
   login(payload){
     Dispatcher.dispatch({ action: Constants.LOGIN_PENDING });
-    WebAPI.login(payload);
-    //Api.post(Constants.LOGIN, "sessions/", payload);
+    Auth.login(payload.email, payload.password, function(){
+      Dispatcher.dispatch({ action: Constants.LOGIN_COMPLETE });
+    });
+  },
+
+  oAuthLogin(payload){
+    Dispatcher.dispatch({ action: Constants.LOGIN_PENDING });
+    Auth.oAuthLogin(payload.provider, function(){
+      Dispatcher.dispatch({ action: Constants.LOGIN_COMPLETE });
+    });
   },
 
   register(payload) {
     Dispatcher.dispatch({ action: Constants.REGISTER_PENDING });
-    WebAPI.register(payload);
-    //Api.post(Constants.REGISTER, "users/", payload);
+    Auth.register(payload);
   }
 
 };

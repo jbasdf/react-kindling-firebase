@@ -10,6 +10,7 @@ var devOutput     = path.join(__dirname, '../app', devRelativeOutput);
 var prodOutput    = path.join(__dirname, '../build', prodRelativeOutput);
 
 var hotPort = process.env.ASSETS_PORT || 8080;
+var firebaseBaseUrl = 'https://blinding-torch-6091.firebaseio.com/';
 
 module.exports = {
   title: info.title,
@@ -22,6 +23,8 @@ module.exports = {
 
   devOutput: devOutput,
   prodOutput: prodOutput,
+
+  firebaseBaseUrl: firebaseBaseUrl,
 
   // Dev urls
   devAssetsUrl: process.env.ASSETS_URL || 'http://localhost:' + hotPort,

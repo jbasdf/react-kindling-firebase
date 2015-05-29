@@ -3,7 +3,7 @@
 import React            from 'react';
 import BaseComponent    from "../base_component";
 import { Link }         from 'react-router';
-import UserActions      from '../../actions/userActions';
+import UserActions      from '../../actions/users';
 import {Styles, Paper, TextField, FlatButton, RaisedButton, FloatingActionButton } from "material-ui";
 
 const Colors = Styles.Colors; 
@@ -111,9 +111,9 @@ class Login extends BaseComponent{
           </div>
         </form>
         <div style={styles.oAuthContainer} >
-          <FloatingActionButton style={styles.oauthButton} iconClassName='icon-google' mini={true} secondary={true} onClick={()=> this._oAuthLogin('google')} />
-          <FloatingActionButton style={styles.oauthButton} iconClassName='icon-facebook' mini={true} secondary={true} onClick={()=> this._oAuthLogin('facebook')} />
-          <FloatingActionButton style={styles.oauthButton} iconClassName='icon-twitter' mini={true} secondary={true} onClick={()=> this._oAuthLogin('twitter')} />
+          <FloatingActionButton style={styles.oauthButton} iconClassName='icon-google' mini={true} secondary={true} onClick={(e)=> this._oAuthLogin(e, 'google')} />
+          <FloatingActionButton style={styles.oauthButton} iconClassName='icon-facebook' mini={true} secondary={true} onClick={(e)=> this._oAuthLogin(e, 'facebook')} />
+          <FloatingActionButton style={styles.oauthButton} iconClassName='icon-twitter' mini={true} secondary={true} onClick={(e)=> this._oAuthLogin(e, 'twitter')} />
         </div>
         <p style={styles.p}>
           Need an account? <Link to="register">Register</Link>
@@ -124,14 +124,17 @@ class Login extends BaseComponent{
 
   _handleLogin(e){
     e.preventDefault();
-     UserActions.login({
-       email: this.refs.email.getValue(),
-       password: this.refs.password.getValue()
-     });
+    UserActions.login({
+      email: this.refs.email.getValue(),
+      password: this.refs.password.getValue()
+    });
   }
 
-  _oAuthLogin(provider) {
-    //TODO:  Wire this up to actions
+  _oAuthLogin(e, provider) {
+    e.preventDefault();
+    UserActions.login({
+      provider: provider
+    });
   }
 
 }
