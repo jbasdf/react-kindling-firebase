@@ -1,4 +1,4 @@
-var info      = require('../package.json');
+//var info      = require('../package.json');
 var path      = require('path');
 
 var clientAppPath = path.join(__dirname, '../app/');
@@ -13,9 +13,9 @@ var hotPort = process.env.ASSETS_PORT || 8080;
 var firebaseBaseUrl = 'https://blinding-torch-6091.firebaseio.com/';
 
 module.exports = {
-  title: info.title,
-  author: info.author,
-  version: info.versions,
+  //title: info.title,
+  //author: info.author,
+  //version: info.versions,
   build: Date.now(),
 
   devRelativeOutput: devRelativeOutput,

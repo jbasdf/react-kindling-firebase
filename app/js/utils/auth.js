@@ -2,6 +2,7 @@
 
 import assign                from 'object-assign';
 import Settings              from '../../../config/settings';
+import Firebase              from 'firebase';
 
 const Auth = {
   onAuth(authObject){
@@ -12,7 +13,7 @@ const Auth = {
     if(localStorage.token){
       if(cb){
         cb({
-          isLoggedIn: true, 
+          success: true, 
           isNewUser: false
         });
       }
@@ -24,9 +25,10 @@ const Auth = {
       case 'google':
         const dataRef = new Firebase(Settings.firebaseBaseUrl);
         dataRef.authWithOAuthPopup("google", (error, authData) => {
+        //dataRef.authWithOAuthRedirect("google", (error, authData) => {
           if(error) {
             console.log("Login Failed!", error);
-            if(cb) cb({isLoggedIn: false, isNewUser: false});
+            if(cb) cb({success: false, message: error});
             this.onChange(false);
           }
           else{
@@ -40,7 +42,7 @@ const Auth = {
                 var newUserData = assign({provider: authData.provider}, getUserDataFromGoogle(authData));
                 dataRef.child('users').child(authData.uid).set(newUserData)
               }
-              if(cb) cb({isLoggedIn: true, isNewUser: !data.val});
+              if(cb) cb({success: true, userData: data.val});
               });
             this.onChange(true);
           }

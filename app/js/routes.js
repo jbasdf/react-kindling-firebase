@@ -7,16 +7,18 @@ import Index        from './components/index';
 import Home         from './components/main/home';
 import Register     from './components/users/register';
 import Login        from './components/sessions/login';
+import Logout       from './components/sessions/logout';
 import NotFound     from './components/not_found';
 
-var Route         = Router.Route;
-var NotFoundRoute = Router.NotFoundRoute;
-var DefaultRoute  = Router.DefaultRoute;
-var Redirect      = Router.Redirect;
+const Route         = Router.Route;
+const NotFoundRoute = Router.NotFoundRoute;
+const DefaultRoute  = Router.DefaultRoute;
+const Redirect      = Router.Redirect;
 
 export default (
   <Route name='root' path='/' handler={Index}>
     <Route name='login' handler={Login} />
+    <Route name='logout' handler={Logout} />
     <Route name='register' handler={Register} />
     <DefaultRoute name='home' handler={Home}/>
     <NotFoundRoute handler={NotFound}/>

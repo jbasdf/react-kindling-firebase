@@ -1,16 +1,21 @@
 import React from 'react';
 import Router from 'react-router';
 import mui, {Styles, MenuItem, LeftNav} from 'material-ui'; 
+import Auth         from './../utils/auth';
 
 const Colors = Styles.Colors;
 const Spacing = Styles.Spacing;
 const Typography = Styles.Typography;
 
-var menuItems = [
-    { route: 'login', text: 'Login' },
-    { route: 'home', text: 'Home' },
-    { route: 'register', text: 'Register' },
-  ];
+const loggedOutMenuItems = [
+  { route: 'login', text: 'Login' },
+  { route: 'register', text: 'Register' },
+];
+
+const loggedInMenuItems = [
+  {route: 'logout', text: 'Logout'},
+  {route: 'home', text:'Home'}
+];
 
 class AppLeftNav extends React.Component {
 
@@ -37,8 +42,12 @@ class AppLeftNav extends React.Component {
     };
   }
 
+  getMenuItems(){
+    return Auth.loggedIn() ? loggedInMenuItems : loggedOutMenuItems;
+  }
+
   render() {
-    var header = (
+    let header = (
       <div style={this.getStyles()} onClick={this._onHeaderClick}>
       Your App
       </div>
@@ -50,7 +59,7 @@ class AppLeftNav extends React.Component {
         docked={false}
         isInitiallyOpen={false}
         header={header}
-        menuItems={menuItems}
+        menuItems={this.getMenuItems()}
         selectedIndex={this._getSelectedIndex()}
         onChange={this._onLeftNavChange} />
     );
@@ -61,9 +70,10 @@ class AppLeftNav extends React.Component {
   }
 
   _getSelectedIndex() {
-    var currentItem;
+    let currentItem;
+    let menuItems = this.getMenuItems();
 
-    for (var i = menuItems.length - 1; i >= 0; i--) {
+    for (let i = menuItems.length - 1; i >= 0; i--) {
       currentItem = menuItems[i];
       if (currentItem.route && this.context.router.isActive(currentItem.route)) return i;
     }

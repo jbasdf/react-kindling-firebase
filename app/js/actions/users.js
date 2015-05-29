@@ -16,7 +16,13 @@ export default {
   oAuthLogin(payload){
     Dispatcher.dispatch({ action: Constants.LOGIN_PENDING });
     Auth.oAuthLogin(payload.provider, function(){
-      Dispatcher.dispatch({ action: Constants.LOGIN_COMPLETE });
+      if(loginResponse.success)
+        Dispatcher.dispatch({
+          action: Constants.LOGIN_COMPLETE,
+          userData: loginResponse.userData
+        });
+      else
+        Dispatcher.dispatch({action: Constants.LOGIN_FAILURE })
     });
   },
 

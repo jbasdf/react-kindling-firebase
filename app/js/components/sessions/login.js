@@ -132,7 +132,7 @@ class Login extends BaseComponent{
 
   _oAuthLogin(e, provider) {
     e.preventDefault();
-    UserActions.login({
+    UserActions.oAuthLogin({
       provider: provider
     });
   }

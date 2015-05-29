@@ -114,7 +114,7 @@ class Register extends BaseComponent{
           <TextField type="password" hintText="******" floatingLabelText="Password" errorText={this.state.validations.password} ref="password" onBlur={this.validatePassword} />
           <TextField type="password" hintText="******" floatingLabelText="Confirm Password"  errorText={this.state.validations.confirmPassword} ref="confirmPassword" onBlur={this.validateConfirmPassword} />
           <div style={styles.submitButtonContainer}>
-            <RaisedButton className="sign-up-button"label="Signup" primary={true} />
+            <RaisedButton label="Signup" primary={true} />
           </div>
         </form>
         <p style={styles.p}>
