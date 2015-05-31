@@ -4,6 +4,8 @@ import assign                from 'object-assign';
 import Settings              from '../../../config/settings';
 import Firebase              from 'firebase';
 
+const dataRef = new Firebase(Settings.firebaseBaseUrl);
+
 const Auth = {
   onAuth(authObject){
     console.log('onAuth called');
@@ -23,7 +25,6 @@ const Auth = {
     //Else, need to log in.
     switch(provider){
       case 'google':
-        const dataRef = new Firebase(Settings.firebaseBaseUrl);
         dataRef.authWithOAuthPopup("google", (error, authData) => {
         //dataRef.authWithOAuthRedirect("google", (error, authData) => {
           if(error) {
@@ -35,7 +36,7 @@ const Auth = {
             //New user or existing user?
             console.log('Authenticated successfully with payload:', authData);
             localStorage.token = authData.token;
-            let userData = dataRef.child('users').child(authData.uid).once("value", data => {
+            var userData = dataRef.child('users').child(authData.uid).once("value", data => {
               const dataVal = data.val();
               if(!dataVal){
                 //new user
