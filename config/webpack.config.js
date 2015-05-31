@@ -28,7 +28,7 @@ module.exports = function(release){
   if(release){
     entries = settings.entries;
   } else {
-    jsLoaders.unshift("react-hot-loader");
+    jsLoaders.unshift("react-hot");
 
     // Configure entries with hotloader
     var originalEntries = settings.entries;
@@ -58,7 +58,7 @@ module.exports = function(release){
     noInfo: false,
     debug: false,
     outputPathinfo: !release,
-    devtool: release ? false : "eval",  // http://webpack.github.io/docs/configuration.html#devtool
+    devtool: release ? false : "source-map",  // http://webpack.github.io/docs/configuration.html#devtool
     stats: {
       colors: true
     },
@@ -82,7 +82,6 @@ module.exports = function(release){
     ],
     module: {
       loaders: [
-        { test: /\.js$/,              loaders: jsLoaders, exclude: /node_modules/ },
         { test: /\.jsx?$/,            loaders: jsLoaders, exclude: /node_modules/ },
         { test: /\.json?$/,           loader: 'json-loader' },
         { test: /\.scss$/,            loader: scssLoaders.join('!') },
