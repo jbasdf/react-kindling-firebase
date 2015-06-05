@@ -15,14 +15,15 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 
 injectTapEventPlugin();
 
-let router = Router.create(Routes);
+var router = Router.create(Routes);
 console.log('got router');
 RouterContainer.set(router);
 
+// Initialize authentication with Firebase
 Auth.init();
 
 router.run((Handler, state) => {
-  let params = state.params;
+  var params = state.params;
   return React.render(
   	<Handler params={state} />, document.getElementById('app-container'));
 });
