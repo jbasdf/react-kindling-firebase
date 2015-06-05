@@ -155,5 +155,5 @@ class Login extends BaseComponent{
 
 }
 
-module.exports = Login;
+export default Login;
 

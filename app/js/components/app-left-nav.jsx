@@ -1,8 +1,9 @@
 import React from 'react';
 import Router from 'react-router';
 import mui, {Styles, MenuItem, LeftNav} from 'material-ui'; 
-import Auth         from './../utils/auth';
+import assign           from 'object-assign';
 import LoginStore   from '../stores/login';
+import BaseComponent from './base_component';
 
 const Colors = Styles.Colors;
 const Spacing = Styles.Spacing;
@@ -18,24 +19,19 @@ const loggedInMenuItems = [
   {route: 'home', text:'Home'}
 ];
 
-class AppLeftNav extends React.Component {
+class AppLeftNav extends BaseComponent {
 
   constructor() {
     super();
-    this.toggle = this.toggle.bind(this);
-    this.state = { loggedIn: Auth.loggedIn()},
-    this._getSelectedIndex = this._getSelectedIndex.bind(this);
-    this._onLeftNavChange = this._onLeftNavChange.bind(this);
-    this._onHeaderClick = this._onHeaderClick.bind(this);
-    this.setStateOnAuth = this.setStateOnAuth.bind(this);
+    this.state = LoginStore.current();
+    this.stores = [LoginStore];
+    this._bind('toggle', '_getSelectedIndex', '_onLeftNavChange', '_onHeaderClick');
   }
 
-  setStateOnAuth(loggedIn){
-    this.setState({loggedIn: loggedIn});
-  }
-
-  componentWillMount(){
-    Auth.onChange = this.setStateOnAuth;
+  getState() {
+    let initialState = this.state;
+    let loginState = LoginStore.current();
+    this.setState(assign(initialState, loginState));
   }
 
   getStyles() {
@@ -54,7 +50,7 @@ class AppLeftNav extends React.Component {
   }
 
   getMenuItems(){
-    return Auth.loggedIn() ? loggedInMenuItems : loggedOutMenuItems;
+    return this.state.loggedIn ? loggedInMenuItems : loggedOutMenuItems;
   }
 
   render() {
@@ -105,4 +101,4 @@ AppLeftNav.contextTypes = {
   router: React.PropTypes.func
 };
 
-module.exports = AppLeftNav;
+export default AppLeftNav;

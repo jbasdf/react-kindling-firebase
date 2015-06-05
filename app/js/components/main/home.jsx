@@ -25,4 +25,4 @@ class Home extends BaseComponent{
   }
 }
 
-module.exports = Home;
+export default Home;

@@ -46,4 +46,4 @@ class Logout extends BaseComponent{
 	}
 }
 
-module.exports = Logout;
+export default Logout;

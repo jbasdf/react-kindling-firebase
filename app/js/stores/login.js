@@ -9,6 +9,7 @@ import _              from "lodash";
 let _loginStoreState = {
 	loggingIn: false,
 	error: "",
+  loggedIn: false,
 };
 
 const LoginStore = assign({}, StoreCommon, {
@@ -34,6 +35,14 @@ Dispatcher.register((payload) => {
     case Constants.LOGIN_FAILURE:
       _loginStoreState.loggedIn = false;
       _loginStoreState.error = payload.error;
+      LoginStore.emitChange();
+      break;
+    case Constants.LOGIN_SUCCESS:
+      _loginStoreState.loggedIn = true;
+      LoginStore.emitChange();
+      break;
+    case Constants.LOGOUT:
+      _loginStoreState.loggedIn = false;
       LoginStore.emitChange();
       break;
     default:
