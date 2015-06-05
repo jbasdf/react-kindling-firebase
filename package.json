@@ -20,6 +20,7 @@
     "babel-runtime": "^5.4.7",
     "firebase": "^2.2.5",
     "flux": "^2.0.3",
+    "json-loader": "^0.5.2",
     "lodash": "^3.9.3",
     "material-ui": "^0.8.0",
     "null-loader": "^0.1.1",

@@ -1,6 +1,6 @@
 import React            from 'react';
 import BaseComponent    from "../base_component";
-import Auth         from './../../utils/auth';
+import Auth         from './../../utils/auth2';
 import 
 	{
 		Styles, 

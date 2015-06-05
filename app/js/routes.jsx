@@ -1,5 +1,3 @@
-"use strict";
-
 import React        from 'react';
 import Router       from 'react-router';
 
@@ -24,3 +22,4 @@ export default (
     <NotFoundRoute handler={NotFound}/>
   </Route>
 );
+

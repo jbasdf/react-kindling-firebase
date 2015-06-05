@@ -2,8 +2,13 @@
 
 export default {
   
-  // User 
+  // Login
   LOGIN: "login",
+  LOGIN_FAILURE: "login_failure",
+  LOGIN_SUCCESS: "login_success",
+  LOGOUT: "logout",
+
+  // User 
   LOGIN_PENDING: "login_pending",
   LOGIN_COMPLETE: "login_complete",
   REGISTER: "register",

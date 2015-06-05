@@ -1,3 +1,2 @@
-// This file exists to compile all css - less and scss - into one file
-require('../styles/styles.less');
-require('../styles/styles.scss');
+import stylesLess from '../styles/styles.less';
+import stylesScss from '../styles/styles.scss';

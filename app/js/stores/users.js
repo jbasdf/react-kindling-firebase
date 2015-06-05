@@ -8,14 +8,10 @@ import _              from "lodash";
 
 let _userData = {};
 
-// Extend Message Store with EventEmitter to add eventing capabilities
 const UserStore = assign({}, StoreCommon, {
-
-  // Return current messages
   current(){
     return _userData;
   },
-
 });
 
 // Register callback with Dispatcher
@@ -28,6 +24,8 @@ Dispatcher.register((payload) => {
   	  UserStore.emitChange();
       break;
     case Constants.LOGIN_FAILURE:
+      _errorMessage = payload.error;
+      UserStore.emitChange();
       break;
     default:
       //No op

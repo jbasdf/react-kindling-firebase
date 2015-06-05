@@ -4,7 +4,10 @@ import React            from 'react';
 import BaseComponent    from "../base_component";
 import { Link }         from 'react-router';
 import UserActions      from '../../actions/users';
+import Validator        from 'validator';
 import {Styles, Paper, TextField, FlatButton, RaisedButton, FloatingActionButton } from "material-ui";
+import assign           from 'object-assign';
+import LoginStore        from '../../stores/login';
 
 const Colors = Styles.Colors; 
 const Spacing = Styles.Spacing; 
@@ -16,8 +19,13 @@ class Login extends BaseComponent{
   constructor() {
     super();
     this.state = {
-      validations: {} 
+      validations: {},
+      error: ""
     };
+  }
+
+  getState() {
+    this.setState(assign(this.State, LoginStore.current()));
   }
 
   validateEmail(e){
@@ -104,11 +112,12 @@ class Login extends BaseComponent{
       <Paper style={styles.registerPaper} >
         <form style={styles.form} onSubmit={(e) => { this._handleLogin(e)}}>
           <h1 style={styles.signupLabel} >Login</h1>
-          <TextField hintText="johndoe@example.com" floatingLabelText="Email" errorText={this.state.validations.email} ref="email" onBlur={this.validateEmail} />
-          <TextField type="password" hintText="******" floatingLabelText="Password" errorText={this.state.validations.password} ref="password" onBlur={this.validatePassword} />
+          <TextField hintText="johndoe@example.com" floatingLabelText="Email" errorText={this.state.validations.email} ref="email" onBlur={() => this.validateEmail()} />
+          <TextField type="password" hintText="******" floatingLabelText="Password" errorText={this.state.validations.password} ref="password" onBlur={() => this.validatePassword()} />
           <div style={styles.submitButtonContainer}>
             <RaisedButton className="sign-up-button"label="Login" primary={true} />
           </div>
+          <p>{this.state.error}</p>
         </form>
         <div style={styles.oAuthContainer} >
           <FloatingActionButton style={styles.oauthButton} iconClassName='icon-google' mini={true} secondary={true} onClick={(e)=> this._oAuthLogin(e, 'google')} />
