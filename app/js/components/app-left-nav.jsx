@@ -23,15 +23,15 @@ class AppLeftNav extends BaseComponent {
 
   constructor() {
     super();
-    this.state = LoginStore.current();
+    this.state = {loggedIn: LoginStore.loggedIn()};
     this.stores = [LoginStore];
     this._bind('toggle', '_getSelectedIndex', '_onLeftNavChange', '_onHeaderClick');
   }
 
   getState() {
     let initialState = this.state;
-    let loginState = LoginStore.current();
-    this.setState(assign(initialState, loginState));
+    let loginState = LoginStore.loggedIn();
+    this.setState({loggedIn: loginState});
   }
 
   getStyles() {

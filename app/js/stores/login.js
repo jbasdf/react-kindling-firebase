@@ -16,6 +16,9 @@ const LoginStore = assign({}, StoreCommon, {
   current(){
     return _loginStoreState;
   },
+  loggedIn(){
+    return _loginStoreState.loggedIn;
+  }
 });
 
 // Register callback with Dispatcher
