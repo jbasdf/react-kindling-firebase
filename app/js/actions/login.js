@@ -9,13 +9,13 @@ export default {
 
 	loginUser(token) {
 		RouterContainer.get().transitionTo('/');
-		//localStorage.setItem('token', token);
+		localStorage.setItem('token', token);
 		Dispatcher.dispatch({action: LOGIN, token: token });
 	},
 
 	logoutUser: () => {
 		RouterContainer.get().transitionTo('/login');
-		//localStorage.removeItem('token');
+		localStorage.removeItem('token');
 		Dispatcher.dispatch({action: LOGOUT });
 	},
 

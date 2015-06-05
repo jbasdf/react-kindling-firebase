@@ -2,6 +2,7 @@ import React from 'react';
 import Router from 'react-router';
 import mui, {Styles, MenuItem, LeftNav} from 'material-ui'; 
 import Auth         from './../utils/auth';
+import LoginStore   from '../stores/login';
 
 const Colors = Styles.Colors;
 const Spacing = Styles.Spacing;

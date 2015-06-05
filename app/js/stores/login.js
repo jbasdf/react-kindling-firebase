@@ -43,3 +43,5 @@ Dispatcher.register((payload) => {
   return true;
 
 });
+
+export default LoginStore;

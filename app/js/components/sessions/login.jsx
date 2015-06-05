@@ -18,6 +18,8 @@ class Login extends BaseComponent{
 
   constructor() {
     super();
+    this.stores = [LoginStore];
+    this._bind('getState');
     this.state = {
       validations: {},
       error: ""
@@ -25,7 +27,9 @@ class Login extends BaseComponent{
   }
 
   getState() {
-    this.setState(assign(this.State, LoginStore.current()));
+    let initialState = this.state;
+    let loginState = LoginStore.current();
+    this.setState(assign(initialState, loginState));
   }
 
   validateEmail(e){
@@ -103,6 +107,9 @@ class Login extends BaseComponent{
         marginRight: 30,
         marginLeft: 30,
       },
+      error: {
+        color: Colors.red900
+      }
     };
   }
 
@@ -117,7 +124,7 @@ class Login extends BaseComponent{
           <div style={styles.submitButtonContainer}>
             <RaisedButton className="sign-up-button"label="Login" primary={true} />
           </div>
-          <p>{this.state.error}</p>
+          <p style={styles.error}>{this.state.error}</p>
         </form>
         <div style={styles.oAuthContainer} >
           <FloatingActionButton style={styles.oauthButton} iconClassName='icon-google' mini={true} secondary={true} onClick={(e)=> this._oAuthLogin(e, 'google')} />
