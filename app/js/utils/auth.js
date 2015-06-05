@@ -5,49 +5,123 @@ import Settings              from '../../../config/settings';
 import Firebase              from 'firebase';
 import LoginActions          from '../actions/login';
 
-let dataRef = new Firebase(Settings.firebaseBaseUrl);
+const dataRef = new Firebase(Settings.firebaseBaseUrl);
 
-const Auth2 = {
-	init(){
-      dataRef.onAuth(authData => {
-      	if(authData) {
-      	  LoginActions.loginUser(authData); 
-      	} 
+class Auth{
+
+  onAuth(authObject){
+    console.log('onAuth called');
+  }
+
+  oAuthLogin(provider, cb){
+    //If we have a token already, just invoke callback and return.
+    if(localStorage.token){
+      if(cb){
+        cb({
+          success: true, 
+          isNewUser: false
+        });
+      }
+      this.onChange(true);
+      return;
+    }
+    //Else, need to log in.
+    switch(provider){
+      case 'google':
+        dataRef.authWithOAuthPopup("google", (error, authData) => {
+        //dataRef.authWithOAuthRedirect("google", (error, authData) => {
+          if(error) {
+            console.log("Login Failed!", error);
+            if(cb) cb({success: false, message: error});
+            this.onChange(false);
+          }
+          else{
+            //New user or existing user?
+            console.log('Authenticated successfully with payload:', authData);
+            localStorage.token = authData.token;
+            var userData = dataRef.child('users').child(authData.uid).once("value", data => {
+              const dataVal = data.val();
+              if(!dataVal){
+                //new user
+                var newUserData = assign({provider: authData.provider}, getUserDataFromGoogle(authData));
+                dataRef.child('users').child(authData.uid).set(newUserData)
+              }
+              if(cb) cb({success: true, userData: data.val});
+              });
+            this.onChange(true);
+          }
+        }, {scope: "email"});
+      break;
+      case 'facebook':
+        console.log('facebook auth called.')
+      break;
+      case 'twitter':
+        console.log('twitter auth called.')
+      break;
+      case 'github':
+        console.log('github auth called.')
+      break;
+    }
+  }
+
+  login(email, pass, cb) {
+    cb = arguments[arguments.length - 1];
+    if (localStorage.token) {
+      if (cb)  cb(true);
+      this.onChange(true);
+      return;
+    }
+    pretendRequest(email, pass, res => {
+      if (res.authenticated) {
+        localStorage.token = res.token;
+        if (cb) cb(true);
+        this.onChange(true);
+      } else {
+        if (cb) cb(false);
+        this.onChange(false);
+      }
+    });
+  }
+
+  getToken() {
+    return localStorage.token;
+  }
+
+  logout(cb) {
+    delete localStorage.token;
+    if (cb) cb();
+    this.onChange(false);
+  }
+
+  loggedIn() {
+    return !!localStorage.token;
+  }
+
+  onChange() {}
+}
+
+//dataRef.onAuth(authData => Auth.onAuth(authData));
+function getUserDataFromGoogle(authData){
+  return {
+    email: authData.google.email,
+    family_name: authData.google.cachedUserProfile.family_name, 
+    given_name: authData.google.cachedUserProfile.given_name, 
+    locale: "en",
+    picture: authData.google.cachedUserProfile.picture
+  };
+}
+
+function pretendRequest(email, pass, cb) {
+  setTimeout(() => {
+    if (email === 'joe@example.com' && pass === 'password1') {
+      cb({
+        authenticated: true,
+        token: Math.random().toString(36).substring(7)
       });
-	},
-	getAuth(){
-		let authData = dataRef.getAuth();
-		if(authData){
- 			LoginActions.loginUser(authData);
-		}
-	},
+    } else {
+      cb({authenticated: false});
+    }
+  }, 1000);
+}
 
-	_authHandler(error, authData){
-		if(error) {
-			LoginActions.loginFailure(error); //Tell login page the error so it can render.
-			console.log("Login Failed!", error);
-		} else {
-			//The firebase onAuth handler above will send the loginUser action
-			console.log("Authenticated successfully with payiload:", authData);
-		}
-	},
-
-	login(email, password, callback){
-		dataRef.authWithPassword({email: email, password: password},
-			this._authHandler);
-		callback();
-	},
-
-	oAuthLogin(provider, callback){
-		dataRef.authWithOAuthRedirect(provider, this._authHandler);
-		callback();
-	},
-
-	logout(){
-		dataRef.unauth();
-		LoginActions.logoutUser();
-	}
-
-};
-
-export default Auth2;
+export default Auth;
