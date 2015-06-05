@@ -6,6 +6,10 @@ import Firebase              from 'firebase';
 import LoginActions          from '../actions/login';
 
 let dataRef = new Firebase(Settings.firebaseBaseUrl);
+
+///Unfortunately this doesn't work because it fires at the very start of the application.
+///There may be a way to hook this up later, but if it runs at the start, 
+///LoginActions.loginUser fails catastrophically
 // dataRef.onAuth(authData => {
 // 	if(authData) {//&& isNewUser){
 // 		// dataRef.child('users').child(authData.uid).set({
@@ -51,6 +55,12 @@ const Auth2 = {
 	login(email, password, callback){
 		dataRef.authWithPassword({email: email, password: password},
 			this._authHandler);
+		callback();
+	},
+
+	oAuthLogin(provider, callback){
+		dataRef.authWithOAuthRedirect(provider, this._authHandler);
+		getAuth();
 		callback();
 	},
 
