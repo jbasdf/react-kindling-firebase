@@ -67,7 +67,7 @@ class Register extends BaseComponent{
   handleRegister(e){
     e.preventDefault();
     if(this.validateAll()){
-      UserActions.register({
+      UserActions.create({
         email: this.refs.email.getValue(),
         password: this.refs.password.getValue()
       });

@@ -3,16 +3,15 @@
 import React            from 'react';
 import BaseComponent    from "../base_component";
 import { Link }         from 'react-router';
-import UserActions      from '../../actions/users';
+import LoginActions     from '../../actions/login';
 import Validator        from 'validator';
-import {Styles, Paper, TextField, FlatButton, RaisedButton, FloatingActionButton } from "material-ui";
 import assign           from 'object-assign';
 import LoginStore       from '../../stores/login';
+import {Styles, Paper, TextField, RaisedButton, FloatingActionButton } from "material-ui";
 
-const Colors = Styles.Colors; 
-const Spacing = Styles.Spacing; 
-const Typography = Styles.Typography; 
-const ThemeManager = new Styles.ThemeManager().getCurrentTheme();
+
+const Colors  = Styles.Colors;
+const Spacing = Styles.Spacing;
 
 class Login extends BaseComponent{
 
@@ -27,8 +26,8 @@ class Login extends BaseComponent{
   }
 
   getState() {
-    let initialState = this.state;
-    let loginState = LoginStore.current();
+    var initialState = this.state;
+    var loginState = LoginStore.current();
     this.setState(assign(initialState, loginState));
   }
 
@@ -140,7 +139,7 @@ class Login extends BaseComponent{
 
   _handleLogin(e){
     e.preventDefault();
-    UserActions.login({
+    LoginActions.login({
       email: this.refs.email.getValue(),
       password: this.refs.password.getValue()
     });
@@ -148,7 +147,7 @@ class Login extends BaseComponent{
 
   _oAuthLogin(e, provider) {
     e.preventDefault();
-    UserActions.oAuthLogin({
+    LoginActions.oAuthLogin({
       provider: provider
     });
   }

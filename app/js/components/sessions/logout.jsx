@@ -1,20 +1,9 @@
 import React            from 'react';
 import BaseComponent    from "../base_component";
-//import Auth         from './../../utils/auth';
-import UserActions      from '../../actions/users';
-import 
-	{
-		Styles, 
-		Paper, 
-		TextField,
-		FlatButton,
-		FloatingActionButton
-	}                   from "material-ui";
+import LoginActions     from '../../actions/login';
+import { Styles }       from "material-ui";
 
-const Colors = Styles.Colors; 
 const Spacing = Styles.Spacing; 
-const Typography = Styles.Typography; 
-const ThemeManager = new Styles.ThemeManager().getCurrentTheme();
 
 class Logout extends BaseComponent{
 	constructor() {
@@ -27,11 +16,11 @@ class Logout extends BaseComponent{
 	}	
 
 	componentDidMount() {
-		UserActions.logout();
+		LoginActions.logout();
 	}
 
 	render(){
-		let styles = {
+		var styles = {
 			root: {
 				width: 345,
 				margin: 'auto',
@@ -39,11 +28,11 @@ class Logout extends BaseComponent{
 			}
 		};
 
-	    return <div style={styles.root}> 
-	        <div >
-	          <p >You have successfully logged out.</p>
-	        </div>
-	      </div>;
+    return <div style={styles.root}> 
+        <div>
+          <p>You have successfully logged out.</p>
+        </div>
+      </div>;
 	}
 }
 
