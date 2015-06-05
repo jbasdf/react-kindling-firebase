@@ -1,6 +1,7 @@
 import React            from 'react';
 import BaseComponent    from "../base_component";
-import Auth         from './../../utils/auth2';
+//import Auth         from './../../utils/auth';
+import UserActions      from '../../actions/users';
 import 
 	{
 		Styles, 
@@ -26,7 +27,7 @@ class Logout extends BaseComponent{
 	}	
 
 	componentDidMount() {
-		Auth.logout();
+		UserActions.logout();
 	}
 
 	render(){

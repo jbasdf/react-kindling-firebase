@@ -2,20 +2,18 @@
 
 import {LOGOUT, LOGIN_FAILURE, LOGIN_SUCCESS}   from "../constants";
 import Dispatcher  from "../dispatcher";
-import Auth        from "../utils/auth2";
+import Auth        from "../utils/auth";
 import RouterContainer  from "../utils/router-container";
 
 export default {
 
 	loginUser: (token) => {
 		RouterContainer.get().transitionTo('/');
-		//localStorage.setItem('token', token);
 		Dispatcher.dispatch({action: LOGIN_SUCCESS, token: token });
 	},
 
-	logoutUser: () => {
+	logoutUser(){
 		RouterContainer.get().transitionTo('/login');
-		//localStorage.removeItem('token');
 		Dispatcher.dispatch({action: LOGOUT });
 	},
 

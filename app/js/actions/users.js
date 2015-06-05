@@ -2,7 +2,7 @@
 
 import Constants   from "../constants";
 import Dispatcher  from "../dispatcher";
-import Auth        from "../utils/auth2";
+import Auth        from "../utils/auth";
 
 export default {
 
@@ -10,6 +10,13 @@ export default {
     Dispatcher.dispatch({ action: Constants.LOGIN_PENDING });
     Auth.login(payload.email, payload.password, () => {
       Dispatcher.dispatch({ action: Constants.LOGIN_COMPLETE });
+    });
+  },
+
+  logout(){
+    Dispatcher.dispatch({ action: Constants.LOGOUT_PENDING });
+    Auth.logout(() => {
+      Dispatcher.dispatch({ action: Constants.LOGOUT_COMPLETE });
     });
   },
 

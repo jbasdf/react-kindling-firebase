@@ -5,7 +5,7 @@ import css               from '../styles/styles';
 import RouterContainer   from './utils/router-container';
 import LoginActions      from './actions/login';
 import FontIcons         from '../styles/font-icons/style.css';
-import Auth              from './utils/auth2.js';
+import Auth              from './utils/auth';
 
 //Needed for onTouchTap
 //Can go away when react 1.0 release

@@ -11,6 +11,8 @@ export default {
   // User 
   LOGIN_PENDING: "login_pending",
   LOGIN_COMPLETE: "login_complete",
+  LOGOUT_PENDING: "logout_pending",
+  LOGOUT_COMPLETE: "logout_complete",
   REGISTER: "register",
   REGISTER_PENDING: "register_pending",
 
