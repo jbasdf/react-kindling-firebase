@@ -7,36 +7,16 @@ import LoginActions          from '../actions/login';
 
 let dataRef = new Firebase(Settings.firebaseBaseUrl);
 
-///Unfortunately this doesn't work because it fires at the very start of the application.
-///There may be a way to hook this up later, but if it runs at the start, 
-///LoginActions.loginUser fails catastrophically
-// dataRef.onAuth(authData => {
-// 	if(authData) {//&& isNewUser){
-// 		// dataRef.child('users').child(authData.uid).set({
-// 		// 	provider: authData.provider,
-// 		// 	name: getName(AuthData)
-// 		// });
-// 		LoginActions.loginUser(authData);
-// 	} 
-// 	//Login Action: LOGIN_SUCCESS
-// });
-
-function getName(authData){
-	switch(authData.provider){
-		case 'password':
-			return authData.password.email.replace(/@.*/, '');
-		case 'twitter':
-			return authData.twitter.displayName;
-		case 'facebook':
-			return authData.facebook.displayName;
-		case 'google':
-			return authData.google.displayName;
-	}
-}
-
 const Auth2 = {
+	init(){
+      dataRef.onAuth(authData => {
+      	if(authData) {
+      	  LoginActions.loginUser(authData); 
+      	} 
+      });
+	},
 	getAuth(){
-		var authData = dataRef.getAuth();
+		let authData = dataRef.getAuth();
 		if(authData){
  			LoginActions.loginUser(authData);
 		}
@@ -47,7 +27,7 @@ const Auth2 = {
 			LoginActions.loginFailure(error); //Tell login page the error so it can render.
 			console.log("Login Failed!", error);
 		} else {
- 			LoginActions.loginUser(authData);
+			//The firebase onAuth handler above will send the loginUser action
 			console.log("Authenticated successfully with payiload:", authData);
 		}
 	},
@@ -60,7 +40,6 @@ const Auth2 = {
 
 	oAuthLogin(provider, callback){
 		dataRef.authWithOAuthRedirect(provider, this._authHandler);
-		getAuth();
 		callback();
 	},
 
@@ -68,7 +47,6 @@ const Auth2 = {
 		dataRef.unauth();
 		LoginActions.logoutUser();
 	}
-
 
 };
 

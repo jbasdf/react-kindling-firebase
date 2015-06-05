@@ -19,7 +19,7 @@ let router = Router.create(Routes);
 console.log('got router');
 RouterContainer.set(router);
 
-Auth.getAuth();
+Auth.init();
 
 router.run((Handler, state) => {
   let params = state.params;

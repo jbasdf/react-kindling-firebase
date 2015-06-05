@@ -7,7 +7,7 @@ import UserActions      from '../../actions/users';
 import Validator        from 'validator';
 import {Styles, Paper, TextField, FlatButton, RaisedButton, FloatingActionButton } from "material-ui";
 import assign           from 'object-assign';
-import LoginStore        from '../../stores/login';
+import LoginStore       from '../../stores/login';
 
 const Colors = Styles.Colors; 
 const Spacing = Styles.Spacing; 
