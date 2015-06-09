@@ -7,6 +7,7 @@ import _             from "lodash";
 import assign        from "object-assign";
 import BaseComponent from "../base_component";
 import UserActions   from "../../actions/users";
+import RegisterStore    from '../../stores/register';
 import { FloatingActionButton, Styles, Paper, TextField, FlatButton, RaisedButton, FontIcon } from "material-ui";
 
 const Colors = Styles.Colors; 
@@ -14,13 +15,22 @@ const Spacing = Styles.Spacing;
 const Typography = Styles.Typography; 
 const ThemeManager = new Styles.ThemeManager().getCurrentTheme();
 
-class Register extends BaseComponent{
+export default class Register extends BaseComponent{
 
   constructor() {
     super();
+    this.stores = [RegisterStore];
+    this._bind('getState', 'validateEmail', 'validatePassword', 'validateConfirmPassword', 'validate', 'validateAll');
     this.state = {
+      error: "",
       validations: {} 
     };
+  }
+
+  getState() {
+    let initialState = this.state;
+    let loginState = RegisterStore.current();
+    this.setState(assign(initialState, loginState));
   }
 
   validateEmail(e){
@@ -100,6 +110,9 @@ class Register extends BaseComponent{
       p: {
         padding: 23,
         margin:20
+      },
+      error: {
+        color: Colors.red900
       }
     };
   }
@@ -116,6 +129,7 @@ class Register extends BaseComponent{
           <div style={styles.submitButtonContainer}>
             <RaisedButton label="Signup" primary={true} />
           </div>
+          <p style={styles.error}>{this.state.error}</p>
         </form>
         <p style={styles.p}>
           Already have an account? <Link to="login">Login</Link>
@@ -123,8 +137,5 @@ class Register extends BaseComponent{
       </Paper>
     </div>;
   }
-
-
 }
 
-module.exports = Register;
