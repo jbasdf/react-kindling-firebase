@@ -10,13 +10,15 @@ const Spacing = Styles.Spacing;
 const Typography = Styles.Typography;
 
 const loggedOutMenuItems = [
+  { route: 'home', text:'Home'},
   { route: 'login', text: 'Login' },
   { route: 'register', text: 'Register' },
 ];
 
 const loggedInMenuItems = [
+  {route: 'home', text:'Home'},
+  {route: 'profile', text:'Profile'},
   {route: 'logout', text: 'Logout'},
-  {route: 'home', text:'Home'}
 ];
 
 class AppLeftNav extends BaseComponent {

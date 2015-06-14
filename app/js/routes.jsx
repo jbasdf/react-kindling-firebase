@@ -6,6 +6,7 @@ import Home         from './components/main/home';
 import Register     from './components/users/register';
 import Login        from './components/sessions/login';
 import Logout       from './components/sessions/logout';
+import Profile      from './components/users/profile';
 import NotFound     from './components/not_found';
 
 const Route         = Router.Route;
@@ -18,6 +19,7 @@ export default (
     <Route name='login' handler={Login} />
     <Route name='logout' handler={Logout} />
     <Route name='register' handler={Register} />
+    <Route name='profile' handler={Profile} />
     <DefaultRoute name='home' handler={Home}/>
     <NotFoundRoute handler={NotFound}/>
   </Route>
