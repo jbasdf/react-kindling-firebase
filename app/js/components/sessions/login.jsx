@@ -28,7 +28,7 @@ class Login extends BaseComponent{
   getState() {
     var initialState = this.state;
     var loginState = LoginStore.current();
-    this.setState(assign(initialState, loginState));
+    return assign(initialState, loginState);
   }
 
   validateEmail(e){
@@ -121,7 +121,7 @@ class Login extends BaseComponent{
           <TextField hintText="johndoe@example.com" floatingLabelText="Email" errorText={this.state.validations.email} ref="email" onBlur={() => this.validateEmail()} />
           <TextField type="password" hintText="******" floatingLabelText="Password" errorText={this.state.validations.password} ref="password" onBlur={() => this.validatePassword()} />
           <div style={styles.submitButtonContainer}>
-            <RaisedButton className="sign-up-button"label="Login" primary={true} />
+            <RaisedButton label="Login" primary={true} />
           </div>
           <p style={styles.error}>{this.state.error}</p>
         </form>

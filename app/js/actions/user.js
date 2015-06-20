@@ -21,6 +21,14 @@ export default {
   registerSucceeded(){
     RouterContainer.get().transitionTo('/login');
     Dispatcher.dispatch({action: Constants.REGISTER_SUCCEEDED});
-  }
+  },
+
+  saveProfile(data){
+    Dispatcher.dispatch({action: Constants.PROFILE_SAVE_PENDING});
+    User.saveProfile(data, () => {
+      RouterContainer.get().transitionTo("/");
+      Dispatcher.dispatch({action: Constants.PROFILE_SAVE_COMPLETE});
+    });
+  },
 
 };

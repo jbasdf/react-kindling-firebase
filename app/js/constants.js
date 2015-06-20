@@ -19,6 +19,9 @@ export default {
   REGISTER_FAILED: "register_failed",
   REGISTER_SUCCEEDED: "register_succeeded",
 
+  PROFILE_SAVE_PENDING: "profile_save_pending",
+  PROFILE_SAVE_COMPLETE: "profile_save_complete",
+
   ADD_MESSAGE: "add_message",
   REMOVE_MESSAGE: "remove_message",
   CLEAR_MESSAGES: "clear_messages",

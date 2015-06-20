@@ -7,9 +7,16 @@ import RouterContainer from "../utils/router-container";
 
 export default {
 
-	loginUser: (token) => {
-		RouterContainer.get().transitionTo('/');
-		Dispatcher.dispatch({action: Constants.LOGIN_SUCCESS, token: token });
+	loginUser: (authData, profileData) => {
+    let userData = {
+      authData: authData,
+      profileData: profileData
+    };
+    //if(!profileData)
+      RouterContainer.get().transitionTo('/profile');
+		//else 
+      //RouterContainer.get().transitionTo('/');
+		Dispatcher.dispatch({action: Constants.LOGIN_SUCCESS, data: userData });
 	},
 
 	logoutUser: () => {

@@ -11,7 +11,9 @@ const Auth = {
   init(){
     dataRef.onAuth(authData => {
       if(authData) {
-        LoginActions.loginUser(authData); 
+        dataRef.child("profiles").child(authData.uid).once("value", profileData => {
+          LoginActions.loginUser(authData, profileData.val()); 
+        });
       } 
     });
   },

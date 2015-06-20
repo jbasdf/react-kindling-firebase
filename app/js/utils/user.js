@@ -2,13 +2,13 @@
 
 import Settings              from '../../../config/settings';
 import Firebase              from 'firebase';
-import UserActions           from '../actions/users';
+import UserActions           from '../actions/user';
 
 const dataRef = new Firebase(Settings.firebaseBaseUrl);
 
 const User = {
 
-  create(user){
+  create(user, callback){
     dataRef.createUser({
       email    : user.email,
       password : user.password
@@ -28,7 +28,13 @@ const User = {
         UserActions.registerSucceeded();
       }
     });
+    if(callback) callback();
 
+  },
+
+  saveProfile(data, callback){
+    dataRef.child('profiles').child(data.uid).set(data.profileData);
+    if(callback) callback();
   }
 
 }

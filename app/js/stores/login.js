@@ -46,6 +46,7 @@ Dispatcher.register((payload) => {
       break;
     case Constants.LOGOUT:
       _loginStoreState.loggedIn = false;
+      _loginStoreState.authData = {};
       LoginStore.emitChange();
       break;
     default:

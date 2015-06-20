@@ -6,7 +6,7 @@ import Validator     from "validator";
 import _             from "lodash";
 import assign        from "object-assign";
 import BaseComponent from "../base_component";
-import UserActions   from "../../actions/users";
+import UserActions   from "../../actions/user";
 import RegisterStore    from '../../stores/register';
 import { FloatingActionButton, Styles, Paper, TextField, FlatButton, RaisedButton, FontIcon } from "material-ui";
 
@@ -30,7 +30,7 @@ export default class Register extends BaseComponent{
   getState() {
     let initialState = this.state;
     let loginState = RegisterStore.current();
-    this.setState(assign(initialState, loginState));
+    return assign(initialState, loginState);
   }
 
   validateEmail(e){
