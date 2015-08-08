@@ -14,8 +14,7 @@ const Spacing = Styles.Spacing;
 const Typography = Styles.Typography; 
 const ThemeManager = new Styles.ThemeManager().getCurrentTheme();
 
-//export default AuthenticatedComponent(class Profile extends BaseComponent {
-export default class Profile extends BaseComponent {
+export default AuthenticatedComponent(class Profile extends BaseComponent {
 	constructor(props) {
 		super(props);
 		this._bind('getState');
@@ -74,5 +73,5 @@ export default class Profile extends BaseComponent {
   }
 
 }
-//);
+);
 
