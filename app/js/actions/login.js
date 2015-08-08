@@ -12,10 +12,10 @@ export default {
       authData: authData,
       profileData: profileData
     };
-    //if(!profileData)
+    if(!profileData)
       RouterContainer.get().transitionTo('/profile');
-		//else 
-      //RouterContainer.get().transitionTo('/');
+		else 
+      RouterContainer.get().transitionTo('/');
 		Dispatcher.dispatch({action: Constants.LOGIN_SUCCESS, data: userData });
 	},
 

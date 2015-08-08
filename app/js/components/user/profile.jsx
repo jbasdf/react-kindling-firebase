@@ -24,8 +24,10 @@ export default class Profile extends BaseComponent {
 	}
 
 	getState(){
-		let profile = UserStore.profile();
-		return profile;
+          let profile = UserStore.profile();
+          if(!profile)
+            profile = {givenName: "", familyName: ""};
+	  return profile;
 	}
 
 	getStyles(){

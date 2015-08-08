@@ -42,7 +42,7 @@ Dispatcher.register((payload) => {
     case Constants.LOGIN_SUCCESS:
       _authData = payload.data.authData;
       _profileData = payload.data.profileData;
-  	  UserStore.emitChange();
+      UserStore.emitChange();
       break;
     case Constants.LOGOUT:
       _authData = {};
